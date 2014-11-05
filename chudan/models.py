@@ -7,7 +7,7 @@ class Profile(models.Model):
     genre = models.CharField(max_length=1,blank=True,null=True)
     city = models.CharField(max_length=50,blank=True,null=True)
     country = models.CharField(max_length=50,blank=True,null=True)
-    education_leven = models.CharField(max_length=200,blank=True,null=True)
+    educational_level = models.CharField(max_length=200,blank=True,null=True)
     working = models.NullBooleanField()
     birth_date = models.DateField(blank=True,null=True)
     kendo_register_date = models.DateField(blank=True,null=True)
@@ -17,16 +17,23 @@ class Status(models.Model):
     status_name = models.CharField(max_length=50)
     reason = models.TextField(blank=True,null=True)
     timestamp = models.DateField(auto_now_add=True)
+    def __str__(self):
+        return str(self.user)+' '+self.status_name
 
 class Attendance(models.Model):
     user = models.ForeignKey(User)
     timestamp = models.DateField()  #month and year only matters
     percentage = models.DecimalField(max_digits=5, decimal_places=2,blank=True,null=True)
+    def __str__(self):
+        return str(self.user)+' '+str(self.timestamp)
+
 
 class Rank(models.Model):
     user = models.ForeignKey(User)
     examination_date = models.DateField()
     approved = models.BooleanField(default=True)
+    def __str__(self):
+        return str(self.user)+' '+str(self.examination_date)
 
 class Championship(models.Model):
     user = models.ForeignKey(User)
@@ -36,6 +43,8 @@ class Championship(models.Model):
     team = models.NullBooleanField()
     wins = models.IntegerField(blank=True,null=True)
     losses = models.IntegerField(blank=True,null=True)
+    def __str__(self):
+        return str(self.user)+' '+str(self.date)
 
 class Travel(models.Model):
     user = models.ForeignKey(User)
@@ -45,3 +54,6 @@ class Travel(models.Model):
     championship = models.NullBooleanField()
     seminar = models.NullBooleanField()
     gasshuku = models.NullBooleanField()
+    def __str__(self):
+        return str(self.user)+' '+str(self.date)
+
