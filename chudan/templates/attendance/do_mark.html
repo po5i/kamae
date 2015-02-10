@@ -1,0 +1,29 @@
+{% extends "base_attendance.html" %}
+
+{% block body %}
+
+<div data-role="page"> 
+  <div data-role="header">    
+    <h1>Asistencias del día</h1>
+  </div>
+
+  <ul>
+  {% for attendance in attendances %}
+    <li>{{attendance.user}}</li>
+  {% endfor %}
+  </ul>
+
+  <div data-role="footer">    
+    <div data-role="navbar">
+      <ul>
+        <li><a href="/attendance/mark/" data-icon="check">Asistencia</a></li>
+        <li><a href="/attendance/kenshi/" data-icon="plus" class="ui-btn-active">Nuevo Kenshi</a></li>
+        <li><a href="/attendance/signout/" data-icon="delete">Salir</a></li>
+      </ul>
+    </div><!-- /navbar -->
+  </div><!-- /footer -->
+
+</div>
+
+
+{% endblock body %}

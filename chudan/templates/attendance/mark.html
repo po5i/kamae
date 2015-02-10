@@ -1,0 +1,55 @@
+{% extends "base_attendance.html" %}
+
+{% block body %}
+<script>
+  $(function() {
+ 
+    $( "#kenshi" ).autocomplete({
+      source: function (request, response) {
+	    $.post("/attendance/names/", request, response);
+	  },
+      minLength: 2,
+      select: function( event, ui ) {
+        console.log( ui.item ?
+          "Selected: " + ui.item.value + " aka " + ui.item.id :
+          "Nothing selected, input was " + this.value );
+        $("#user_id").val(ui.item.id)
+      }
+    });
+  });
+ </script>
+
+<div data-role="page"> 
+  <div data-role="header">    
+    <h1>Crear Asistencia</h1>
+  </div>
+
+  <form action="/attendance/do_mark/" method="post" data-ajax="false">
+  <div data-role="fieldcontain">
+      <label for="kenshi">Kenshi:</label>
+      <input type="text" name="kenshi" id="kenshi" value=""  />
+  </div>  
+
+  <input id="user_id" name="user_id" type="hidden">
+
+  <div data-role="fieldcontain">
+      <label for="date">Date:</label>
+      <input type="date" id="date" name="date">
+  </div>  
+  <button type="submit">Guardar</button>
+  </form>
+
+  <div data-role="footer">    
+    <div data-role="navbar">
+      <ul>
+        <li><a href="/attendance/mark/" data-icon="check" class="ui-btn-active">Asistencia</a></li>
+        <li><a href="/attendance/kenshi/" data-icon="plus">Nuevo Kenshi</a></li>
+        <li><a href="/attendance/signout/" data-icon="delete">Salir</a></li>
+      </ul>
+    </div><!-- /navbar -->
+  </div><!-- /footer -->
+
+</div>
+
+
+{% endblock body %}
